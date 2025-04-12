@@ -1,0 +1,70 @@
+<div class="profile-page">
+    <h2>Profile Page</h2>
+
+    <h3>{{user.Username}}'s' details</h3>
+    
+    <div class="profile-info" *ngIf="!isEditing">
+        <p><strong>Username:</strong> {{ userData.Username }}</p>
+        <p><strong>Email:</strong> {{ userData.Email }}</p>
+        <p><strong>Birthday:</strong> {{ userData.Birthday | date }}</p>
+        <div class="profile-buttons">
+            <button (click)="enableEdit()" class="btn btn-primary">Edit Profile</button>
+            <button (click)="confirmDelete()" class="btn btn-danger">Delete Profile</button>
+        </div>
+    </div>
+
+    
+    <form [formGroup]="editForm" *ngIf="isEditing" (ngSubmit)="saveChanges()">
+        <div class="form-group">
+            <label for="Username">Username</label>
+            <input id="Username" formControlName="Username" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="Password">Password</label>
+            <input id="Password" type="password" formControlName="Password" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="Email">Email</label>
+            <input id="Email" formControlName="Email" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="Birthday">Birthday</label>
+            <input id="Birthday" type="date" formControlName="Birthday" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-success">Save</button>
+        <button type="button" (click)="cancelEdit()" class="btn btn-secondary">
+            Cancel
+        </button>
+    </form>
+
+
+    <div class="favorite-movies">
+        <div *ngIf="favMovies.length > 0" class="movies-grid">
+            <mat-card *ngFor="let movie of favMovies" class="movie-card">
+                <img [src]="movie.ImageUrl || 'https://via.placeholder.com/300x400?text=No+Image'" alt="{{ movie.Title }}"
+                    class="movie-image" />
+                <mat-card-title>{{ movie.Title }}</mat-card-title>
+                <mat-card-actions>
+                    <button mat-button color="primary" (click)="openDialog('genre', movie.Genre)">
+                        Genre
+                    </button>
+                    <button mat-button color="primary" (click)="openDialog('director', movie.Director)">
+                        Director
+                    </button>
+                    <button mat-button color="primary" (click)="openDialog('synopsis', movie)">
+                        Synopsis
+                    </button>
+                    <!-- Favorite toggle button -->
+                    <mat-icon (click)="this.fetchApiData.deleteFavMovie(user.username, movie)" class="favorited">
+                        favorite
+                    </mat-icon>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    
+        <!-- Fallback Message -->
+        <div *ngIf="favMovies.length === 0">
+            <h3>You don't have any favorite movies yet!</h3>
+        </div>
+    </div>
+</div>
