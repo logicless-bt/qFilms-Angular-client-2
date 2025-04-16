@@ -25,6 +25,10 @@ export class MovieCardComponent {
     this.getFavoriteMovies();
   }
 
+  /**
+   * utilizes getAllMovies from fetch-api-services
+   * @returns JSON
+   */
   getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
@@ -33,6 +37,10 @@ export class MovieCardComponent {
     });
   }
 
+  /**
+   * utilizes getUserData from fetch-api-services to retrieve favorite movies
+   * @returns JSON
+   */
   getFavoriteMovies(): void {
     this.fetchApiData.getUserData().subscribe((resp: any) => {
       this.favMovies = resp.FavoriteMovies || [];
@@ -40,10 +48,19 @@ export class MovieCardComponent {
     });
   }
 
+  /**
+   * checks if a movie is in FavoriteMovies
+   * @param movie 
+   * @returns boolean
+   */
   isFavorite(movie: any): boolean {
     return this.favMovies.includes(movie._id);
   }
 
+  /**
+   * utilizes addFavMovie or deleteFavMovie from the API
+   * @param movie 
+   */
   toggleFavorite(movie: any): void {
     if (this.isFavorite(movie)) {
       // Remove from favorites

@@ -24,7 +24,10 @@ export class UserLoginFormComponent implements OnInit {
 ngOnInit(): void {
 }
 
-// This is the function responsible for sending the form inputs to the backend
+ /**
+  * utilizes userLogin from fetch-api-services to authenticate a user
+  * @returns token
+  */
   loginUser(): void {
     this.fetchApiData.userLogin(this.userData).subscribe((result) => {
      this.dialogRef.close(); // This will close the modal on success!

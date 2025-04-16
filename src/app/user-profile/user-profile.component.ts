@@ -45,6 +45,11 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * open a modal with movie, genre, or director details
+   * @param type 
+   * @param data 
+   */
   openDialog(type: string, data: any): void {
     // console.log('Dialog Type:', type);
     // console.log('Dialog Data:', data);
@@ -54,6 +59,9 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * utilizes getUserData from fetch-api-services to check favorite movies and edit user details
+   */
   getUserData(): void {
     this.fetchApiData.getUserData().subscribe((resp: any) => {
       this.userData = resp;
